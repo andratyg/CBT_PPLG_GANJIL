@@ -13,7 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Mendaftarkan alias middleware yang digunakan (hanya isGuest dan guru.auth)
+        $middleware->alias([
+            'isGuest'   => App\Http\Middleware\IsGuest::class,
+            'guru.auth' => App\Http\Middleware\GuruAuth::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
